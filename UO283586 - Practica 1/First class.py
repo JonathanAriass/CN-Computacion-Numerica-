@@ -11,9 +11,8 @@ from mpl_toolkits.mplot3d import Axes3D
 print(np.pi)
 
 # Creacion de un array de int
-a = np.array([1, 2, 3, 4])
 
-print('a =', a)
+#print('a =', a)
 
 # El punto indica un float64
 b = np.array([1., 2, 3, 4])
@@ -128,12 +127,13 @@ plt.show()
 plt.close()
 
 # 3D
+"""
 fig1 = plt.figure(figsize=(10,5))
 ax1 = fig1.gca(projection='3d')
 ax1.plot_surface(X, Y, g(X,Y), cmap='jet')
 plt.show()
 plt.close()
-
+"""
 
 
 # EJERCICIO 1 (NOCIONES BASICAS)
@@ -163,14 +163,52 @@ print(c)
 
 # EJERCICIO 3
 A = np.array([[2,1,3,4],[9,8,5,7],[6,-1,-2,-8],[-5,-7,-9,-6]])
+"""
+El funcionamiento para obtener alguna parte de una matriz es:
+    A[:,:] # Selecciona todo
+    A[*1,*2] 
+        *1--> (fila inicial):(fila final)
+        *2--> (columna inicial):(columna final)
+"""
+
+print('Ejercicio 3')
 print(A[:,0]) # primera columna
 print(A[2,:])
-print(A[0:2,50:2])
+print(A[0:3,0:2])
 print(A[2:4,2:4])
 print(A[1:3,1:3])
 print(A[0:4,1:4])
+print(A[1:4,1:3])
 
-a = np.linspace(0,430467210, 17)
-for n in range(0, 17):
-    print(a[n])
 
+print(A[:,:])
+
+
+# EJERCICIO 4
+
+print ('Ejercicio 4')
+f = lambda x : x * np.exp(x)
+g = lambda z : z/(np.sin(z)*np.cos(z))
+h = lambda x,y : (x * y) / (x**2 + y **2)
+
+
+print ('f(2) = ',f(2))
+print ('g(pi/4) = ', g(np.pi/4))
+print ('h(2,4) = ',h(2,4))
+
+
+# EJERCICIO 5
+aux = -(np.pi*2)
+aux2 = np.pi*2
+print(aux)
+b = np.linspace(aux, aux2, 100000)
+print(b)
+f = lambda x : x * np.sin(3*x)
+
+plt.figure()
+plt.plot(b, b*0, 'k-')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.plot(b, f(b), label="Ejercicio 5")
+plt.title('x sen(3x)')
+plt.show()
