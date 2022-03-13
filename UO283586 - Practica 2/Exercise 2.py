@@ -48,9 +48,11 @@ x = np.linspace(-1,1)
 y = f(x)
 valores, iteraciones = funExp(x, 1.e-8, 100)
 
-plt.plot(x,valores,'y', linewidth=4)
-plt.plot(x,valores, 'b--')
-plt.axis([-1,1,0,2.5]) #Para ajustar los ejes xMin, xMax, yMin, yMax
+plt.plot(x,valores,'y', linewidth=4, label='f')
+plt.plot(x,x*0,'k-')
+plt.plot(x,valores, 'b--', label='Aproximación f')
+plt.legend()
+#plt.axis([-1,1,0,2.5]) #Para ajustar los ejes xMin, xMax, yMin, yMax
 
 print('Valor de la funcion exp(-0.4) = ', np.exp(x))
 print('Valor de la aproximacion      = ', valores)
