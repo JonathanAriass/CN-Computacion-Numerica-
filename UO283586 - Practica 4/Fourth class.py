@@ -115,7 +115,7 @@ def newton(f, df, x0, tol=1.e-6, maxiter=100):
     return x0, cont
     
         
-#f = lambda x : x**5 - 3 * x**2 + 1.6
+f = lambda x : x**5 - 3 * x**2 + 1.6
 df = lambda x : 5 * x**4 - 6 * x    
 
 a = res[0][0]
