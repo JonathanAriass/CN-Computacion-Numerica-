@@ -100,7 +100,7 @@ df1 = sym.lambdify([x], df_sim, 'numpy')
 df2 = sym.lambdify([x], df2_sim, 'numpy')
 print(df2_sim)
 
-x = np.linspace(-1,3)
+x = np.linspace(-1,3,1000)
 
 plt.figure()
 plt.plot(x,df1(x),x,x*0,'k')
@@ -109,12 +109,54 @@ plt.show()
 
 x5 = np.array([-0.9, 0., 1., 2.3, 2.7])
 raices = op.newton(df1,x5,fprime=df2,tol=1.e-6,maxiter=100)
+mini = raices[df2(raices) > 0]
+maxi = raices[df2(raices) < 0]
 print('Extremos\n',raices)
 
+
+a = -2.
+b = 4.
+x = np.linspace(a,b,1000)
+
+plt.figure()
+plt.plot(x,f(x),label = 'Función f')
+plt.plot([a,b],[0,0],'k-')
+plt.plot(mini,f(mini),'go') # Se plotean los minimos
+plt.plot(maxi,f(maxi),'ro') # Se plotean los maximo
+plt.show()
+print('EXTREMOS')
+print(x1)
+
+
+# SEGUNDA DERIVADAD DE F
+plt.figure()
+plt.plot(x,df2(x))
+plt.plot([a,b],[0,0],'k-')
+plt.title('Funcion derivada segunda de f')
+plt.show()
+
+#Puntos de inflexion
+x0 = np.array([-0.5,0.5,1.5,2.5,3.7])
+x1 = op.newton(df2,x0,tol=1.e-6,maxiter=100)
+print(x1)
+
+# Mostramos en grafica los puntos de inflexion
+a = -1
+b = 4
+x = np.linspace(a,b,1000)
+
+plt.figure()
+plt.plot(x,f(x),label="Funcion f")
+plt.plot([a,b],[0,0],'k-')
+plt.plot(x1,f(x1),'bo',label="Puntos de inflexion")
+plt.legend()
+plt.show()
+
+"""
 x = np.linspace(-2,4)
 
 plt.figure()
-plt.plot(x,f(x),x,x*0,'k',raices,raices*0,'ro')
+plt.plot(x,f(x),x,x*0,'k',raices,raices,'ro')
 plt.show()
-
+"""
 
