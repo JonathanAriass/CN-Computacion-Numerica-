@@ -82,6 +82,7 @@ plt.figure()
 plt.plot(z,res)
 #plt.plot(z,z*0)
 plt.show()
+plt.close()
 
 x1 = np.array([-1., 0, 2, 3, 5, 6, 7])
 y1 = np.array([ 1., 3, 4, 3, 2, 2, 1])
@@ -91,6 +92,7 @@ plt.figure()
 plt.plot(z,res)
 #plt.plot(z,z*0)
 plt.show()
+plt.close()
 
 
 # DIFERENCIAS DIVIDIDAS
@@ -99,9 +101,13 @@ plt.show()
     Argumentos de salida: una matriz que contenga las diferencias divididas.
 """
 def dif_div(x,y):
-    
-    
-    
+    res = np.zeros((len(x),len(y)))
+    for i in range(len(x)):
+        for j in range(len(x)):
+            if i == 0:
+                res[i][j] = (y[i] - y[i+1])/(x[i] - x[i+1])
+            else:
+                res[i][j] = (res[i-1][j] - res[i-1][j+1])/(res[i-1][j] - res[i-1][j+1])
 """    
     Argumentos de entrada: los nodos x, y del problema y un punto (o vector) a evaluar z.
     Argumentos de salida: el valor del polinomio interpolante de Lagrange en z.
