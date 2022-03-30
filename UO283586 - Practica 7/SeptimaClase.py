@@ -71,15 +71,23 @@ df = pd.read_csv('http://www.unioviedo.es/compnum/laboratorios_py/new/cars.csv',
 
 #print(df)
 
+# Obtenemos los diferentes datos de la tabla
 hp = df['horsepower']
 we = df['weight']
 
+# Calculamos el polinomio aproximado de grado 1
 aux = np.polyfit(we, hp, 1)
 val = np.polyval(aux, 3000)
 
+# Obtenemos los supuestos valores para la recta de regresion
+aux2 = np.polyval(aux,we)
+
+print(aux2)
+
+# Printeamos todos la informacion 
 plt.figure()
 plt.plot(we, hp, 'b.')
-plt.legend()
+plt.plot(we,aux2, 'r')
 plt.show()
 plt.close()
 
