@@ -88,11 +88,56 @@ x1 = np.array([-1., 0, 2, 3, 5, 6, 7])
 y1 = np.array([ 1., 3, 4, 3, 2, 2, 1])
 z = np.linspace(-1,7,100)
 res = polinomio_lagrange(x1, y1, z)
+print("RES: ", res)
 plt.figure()
 plt.plot(z,res)
 #plt.plot(z,z*0)
 plt.show()
 plt.close()
+
+def searchVecino(x,y,x0):
+    index = 0
+    aux = np.inf
+    for i in range(len(x)):
+        if abs(x[i] - x0) < aux:
+            aux = abs(x[i] - x0)
+            index = i
+
+        elif abs(x[i] - x0) == aux:
+            if y[i] < y[index]:
+                index = i
+    return index
+
+def nn(x,y,x0):
+    res = np.zeros_like(x0)
+    res[0] = y[0]
+    res[-1] = y[-1]
+    for i in range(1,len(x0)-1):
+        left = x[i-1]
+        right = x[i]
+        if (x0[i] == left):
+            res[i] = y[i-1]
+        elif x0[i] == right:
+            res[i] = y[i]
+        else:
+            vecino = searchVecino(x, y, x0[i])
+            res[i] = y[vecino]
+        print("RESULTADO: ", res)
+            
+    plt.figure()
+    plt.scatter(x,y, linewidths=9)
+    plt.scatter(x0,res, linewidths=1, color='red')
+    plt.plot()
+    plt.show()
+
+    
+   
+x = np.array([-1., 0, 2, 3, 5, 6, 7])
+y = np.array([1., 3, 4, 3, 2, 2, 1])
+x0 = np.array([-1., 1.3, 2.5, 3, 3.2, 5, 6.5, 7])
+
+nn(x,y,x0)
+
 
 
 # DIFERENCIAS DIVIDIDAS
@@ -102,15 +147,29 @@ plt.close()
 """
 def dif_div(x,y):
     res = np.zeros((len(x),len(y)))
+    
+    for i in range(len(y)):
+        res[i, 0] = y[i]
+    
+    for i in range(1, len(x)):
+        for j in range(len(y) - i):
+            res[j][i] = (res[j+1][i-1] - res[j][i-1])/(x[i+j] - x[j])
+    
+    b = np.zeros(len(x))
+    
     for i in range(len(x)):
-        for j in range(len(x)):
-            if i == 0:
-                res[i][j] = (y[i] - y[i+1])/(x[i] - x[i+1])
-            else:
-                res[i][j] = (res[i-1][j] - res[i-1][j+1])/(res[i-1][j] - res[i-1][j+1])
+        b[i] = res[i, i]
+    
+    return res
 """    
     Argumentos de entrada: los nodos x, y del problema y un punto (o vector) a evaluar z.
     Argumentos de salida: el valor del polinomio interpolante de Lagrange en z.
 """
-def polinomio_newton(x,y,z):
+#def polinomio_newton(x,y,z):
+  
     
+  
+x = np.array([-1., 0, 2, 3, 5])
+y = np.array([ 1., 3, 4, 3, 1])
+aux = dif_div(x, y)
+print(aux)
